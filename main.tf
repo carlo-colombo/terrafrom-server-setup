@@ -1,0 +1,4 @@
+module "bot" {
+  source = "./bot"
+}
+
