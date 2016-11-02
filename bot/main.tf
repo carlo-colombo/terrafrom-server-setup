@@ -20,7 +20,7 @@ provider "docker" {
 
 resource "docker_container" "bot" {
   image = "${docker_image.bot.latest}"
-  name = "bot"
+  name = "${var.virtual_host}"
   env = [
     "PORT=${var.port}",
     "TELEGRAM_BOT_TOKEN=${var.TELEGRAM_BOT_TOKEN}",
