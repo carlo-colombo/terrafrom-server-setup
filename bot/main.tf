@@ -6,7 +6,7 @@ variable "port" {
   default = 9568
 }
 
-variable "TELEGRAM_BOT_TOKEN" {
+variable "dublin_bus_bot_token" {
   type = "string"
 }
 
@@ -14,16 +14,12 @@ variable "virtual_host" {
   type = "string"
 }
 
-provider "docker" {
-    host = "unix:///var/run/docker.sock"
-}
-
 resource "docker_container" "bot" {
-  image = "${docker_image.bot.latest}"
+  image = "${var.image}:latest"
   name = "${var.virtual_host}"
   env = [
     "PORT=${var.port}",
-    "TELEGRAM_BOT_TOKEN=${var.TELEGRAM_BOT_TOKEN}",
+    "TELEGRAM_BOT_TOKEN=${var.dublin_bus_bot_token}",
     "VIRTUAL_HOST=${var.virtual_host}"
   ]
   ports {
@@ -31,11 +27,9 @@ resource "docker_container" "bot" {
   }
 }
 
-resource "docker_image" "bot" {
-    name = "${var.image}"
-}
-
-output "name" {
-  value = "${docker_container.bot.name}"
+output "values" {
+  value = {
+    name = "${docker_container.bot.name}"
+  }
 }
 

@@ -2,16 +2,20 @@ provider "docker" {
     host = "unix:///var/run/docker.sock"
 }
 
-variable "TELEGRAM_BOT_TOKEN" {
+variable "dublin_bus_bot_token" {
   type = "string"
 }
 
 module "bot" {
   source = "./bot"
-  TELEGRAM_BOT_TOKEN = "${var.TELEGRAM_BOT_TOKEN}"
+  dublin_bus_bot_token = "${var.dublin_bus_bot_token}"
   virtual_host = "bot.local"
 }
 
 module "nginx" {
   source = "nginx"
+}
+
+output "containers" {
+  value = [ "${module.bot.values}" ]
 }
