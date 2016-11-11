@@ -2,14 +2,29 @@ provider "docker" {
     host = "unix:///var/run/docker.sock"
 }
 
+variable "webhook_me_bot_token" {
+  type = "string"
+}
+
 variable "dublin_bus_bot_token" {
   type = "string"
 }
 
-module "bot" {
+module "dublin_bus" {
   source = "./bot"
-  dublin_bus_bot_token = "${var.dublin_bus_bot_token}"
-  virtual_host = "bot.local"
+  name = "dublin_bus"
+  image = "carlocolombo/dublin_bus_telegram_bot"
+  bot_token = "${var.dublin_bus_bot_token}"
+}
+
+module "webhook_me" {
+  source = "./bot"
+  name = "webhook_me"
+  image = "carlocolombo/webhook_me"
+  bot_token = "${var.webhook_me_bot_token}"
+  env_vars = [
+    "HASHIDS_SALT=asdhkajsu7d8f9jsdfjnfsdf98dsjfm"
+  ]
 }
 
 module "nginx" {
@@ -17,5 +32,8 @@ module "nginx" {
 }
 
 output "containers" {
-  value = [ "${module.bot.values}" ]
+  value = [
+    "${module.dublin_bus.values}",
+    "${module.webhook_me.values}"
+  ]
 }

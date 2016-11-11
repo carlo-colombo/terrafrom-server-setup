@@ -2,30 +2,35 @@ variable "image" {
   default = "local/dublin_bus_telegram_bot"
 }
 
+variable "name" {
+  type = "string"
+}
+
+variable "virtual_host_suffix" {
+  default = "local"
+}
+
 variable "port" {
   default = 9568
 }
 
-variable "dublin_bus_bot_token" {
+variable "bot_token" {
   type = "string"
 }
 
-variable "virtual_host" {
-  type = "string"
+variable "env_vars" {
+  default = []
 }
 
 resource "docker_container" "bot" {
-  image = "${var.image}:latest"
-  name = "${var.virtual_host}"
-  env = [
-    "PORT=${var.port}",
-    "TELEGRAM_BOT_TOKEN=${var.dublin_bus_bot_token}",
-    "VIRTUAL_HOST=${var.virtual_host}"
-  ]
+  image = "${var.image}"
+  name = "${var.name}"
+  env = "${concat(split(",","PORT=${var.port},TELEGRAM_BOT_TOKEN=${var.bot_token},VIRTUAL_HOST=${var.name}.${var.virtual_host_suffix}"),var.env_vars)}"
   ports {
     internal = "${var.port}"
   }
 }
+
 
 output "values" {
   value = {
