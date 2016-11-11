@@ -35,6 +35,7 @@ resource "docker_container" "bot" {
 output "values" {
   value = {
     name = "${docker_container.bot.name}"
+    status = "http://${var.name}.${var.virtual_host_suffix}/${var.bot_token}/status"
   }
 }
 
