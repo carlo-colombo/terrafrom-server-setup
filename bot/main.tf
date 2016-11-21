@@ -7,7 +7,7 @@ variable "name" {
 }
 
 variable "virtual_host_suffix" {
-  default = "local"
+  default = "local.dev"
 }
 
 variable "port" {
