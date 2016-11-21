@@ -25,7 +25,7 @@ variable "env_vars" {
 resource "docker_container" "bot" {
   image = "${var.image}"
   name = "${var.name}"
-  env = "${concat(split(",","PORT=${var.port},TELEGRAM_BOT_TOKEN=${var.bot_token},VIRTUAL_HOST=${var.name}.${var.virtual_host_suffix}"),var.env_vars)}"
+  env = "${concat(split(",","PORT=${var.port},TELEGRAM_BOT_TOKEN=${var.bot_token},VIRTUAL_HOST=${var.name}.${var.virtual_host_suffix},BASE_ADDRESS=http://${var.name}.${var.virtual_host_suffix}"),var.env_vars)}"
   ports {
     internal = "${var.port}"
   }
