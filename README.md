@@ -6,5 +6,10 @@ Recreating with [terraform](https://www.terraform.io) a setup I already have wit
 ### Actual situation
 `docker-compose` allow to spin up a set of images based on a yaml configuration fiele (yeah yaml!!! :-D ). `docker-compose` does not implement (AFAIK) any type of templating in its configuration file this bring duplication and embedding of secrets inside of the configuration.
 
+### Expected improvment using Terraform
+- configuration reusability between similar services (bots)
+- removing secrets from the configuration
+- terraform output can be used to automate succesful step (eg ping to `/status` endpoint )
+
 ### [nginx-proxy](https://github.com/jwilder/nginx-proxy)
 nginx-proxy sets up a container running nginx and docker-gen. docker-gen generates reverse proxy configs for nginx and reloads nginx when containers are started and stopped.
