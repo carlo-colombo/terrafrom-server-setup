@@ -10,6 +10,10 @@ variable "dublin_bus_bot_token" {
   type = "string"
 }
 
+variable "hashids_salt" {
+  type = "string"
+}
+
 module "dublin_bus" {
   source = "./bot"
   name = "dublin_bus"
@@ -23,7 +27,7 @@ module "webhook_me" {
   image = "carlocolombo/webhook_me"
   bot_token = "${var.webhook_me_bot_token}"
   env_vars = [
-    "HASHIDS_SALT=asdhkajsu7d8f9jsdfjnfsdf98dsjfm"
+    "HASHIDS_SALT=${var.hashids_salt}"
   ]
 }
 
