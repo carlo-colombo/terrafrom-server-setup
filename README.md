@@ -32,3 +32,16 @@ webhook_me_bot_token = "ask The Bot Father"
 dublin_bus_bot_token = "ask The Bot Father"
 hashids_salt =  "a random string"
 ```
+
+### Terraform commands
+
+```
+# See the resource that terraform is planning to create
+> terraform plan -var-file=secrets.tfvars
+
+# Create and run the containers
+> terraform apply -var-file=secrets.tfvars
+
+# Tear down everything
+> terraform destroy -var-file=secrets.tfvars
+```
