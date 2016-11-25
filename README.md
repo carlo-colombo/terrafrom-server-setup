@@ -13,3 +13,22 @@ Recreating with [terraform](https://www.terraform.io) a setup I already have wit
 
 ### [nginx-proxy](https://github.com/jwilder/nginx-proxy)
 nginx-proxy sets up a container running nginx and docker-gen. docker-gen generates reverse proxy configs for nginx and reloads nginx when containers are started and stopped.
+
+
+
+### Prepare
+
+#### pull docker images 
+```
+> docker pull carlocolombo/dublin_bus_telegram-bot
+> docker pull carlocolombo/webhook_me
+> docker pull jwilder/nginx-proxy
+```
+
+#### create a `secrets.tfvars` to contain telegram bot keys and hashids salt
+
+```
+webhook_me_bot_token = "ask The Bot Father"
+dublin_bus_bot_token = "ask The Bot Father"
+hashids_salt =  "a random string"
+```
